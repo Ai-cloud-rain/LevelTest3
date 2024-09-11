@@ -1,18 +1,30 @@
 package org.example;
 
-//TIP コードを<b>実行</b>するには、<shortcut actionId="Run"/> を押すか
-// ガターの <icon src="AllIcons.Actions.Execute"/> アイコンをクリックします。
-public class Main {
+import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
+public class Main{
   public static void main(String[] args) {
-    //TIP ハイライトされたテキストにキャレットがある状態で <shortcut actionId="ShowIntentionActions"/> を押すと
-    // IntelliJ IDEA によるその修正案を確認できます。
-    System.out.printf("Hello and welcome!");
+    // 正規表現パターン: 070, 080, 090から始まり、ハイフンで区切られた4桁-4桁の形式
+    String regex = "^(070|080|090)-\\d{4}-\\d{4}$";
+    Pattern pattern = Pattern.compile(regex);
 
-    for (int i = 1; i <= 5; i++) {
-      //TIP <shortcut actionId="Debug"/> を押してコードのデバッグを開始します。<icon src="AllIcons.Debugger.Db_set_breakpoint"/> ブレークポイントを 1 つ設定しましたが、
-      // <shortcut actionId="ToggleLineBreakpoint"/> を押すといつでも他のブレークポイントを追加できます。
-      System.out.println("i = " + i);
+    // ユーザーからの入力
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("携帯電話番号を入力してください: ");
+    String phoneNumber = scanner.nextLine();
+
+    // 正規表現でのチェック
+    Matcher matcher = pattern.matcher(phoneNumber);
+
+    // 結果の表示
+    if (matcher.matches()) {
+      System.out.println(phoneNumber + " は有効な携帯電話番号です。");
+    } else {
+      System.out.println(phoneNumber + " は無効な携帯電話番号です。");
     }
+
+    scanner.close();
   }
 }
